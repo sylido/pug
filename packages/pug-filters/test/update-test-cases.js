@@ -75,44 +75,46 @@ getRepo('pugjs', 'pug-parser').on('data', function (entry) {
     return /\.input\.json$/.test(name);
   });
   var pugRe = /\.pug$/;
-  fs.readdirSync(__dirname + '/errors-src').forEach(function (name) {
-    if (!pugRe.test(name)) return;
-    name = name.replace(pugRe, '');
-    var filename = name + '.input.json';
-    var alreadyExists = false;
-    existingErrors = existingErrors.filter(function (existingName) {
-      if (existingName === filename) {
-        alreadyExists = true;
-        return false;
-      }
-      return true;
-    });
-    if (alreadyExists) {
-      var actualTokens = parse(lex(fs.readFileSync(__dirname + '/errors-src/' + name + '.pug', 'utf8')));
-      try {
-        var expectedTokens = JSON.parse(fs.readFileSync(__dirname + '/errors/' + filename, 'utf8'));
-        assert.deepEqual(actualTokens, expectedTokens);
-      } catch (ex) {
-        console.log('update: ' + filename);
-        fs.writeFileSync(__dirname + '/errors/' + filename, JSON.stringify(actualTokens, null, '  '));
-      }
-      var actual = getError(actualTokens, filename);
-      try {
-        var expected = JSON.parse(fs.readFileSync(__dirname + '/errors/' + name + '.expected.json', 'utf8'));
-        assert.deepEqual(actual, expected);
-      } catch (ex) {
-        console.log('update: ' + name + '.expected.json');
-        fs.writeFileSync(__dirname + '/errors/' + name + '.expected.json', JSON.stringify(actual, null, '  '));
-      }
-    } else {
-      console.log('create: ' + filename);
-      var ast = parse(lex(fs.readFileSync(__dirname + '/errors-src/' + name + '.pug', 'utf8')));
-      fs.writeFileSync(__dirname + '/errors/' + filename, JSON.stringify(ast, null, 2));
-      console.log('create: ' + name + '.expected.json');
-      var actual = getError(ast, filename);
-      fs.writeFileSync(__dirname + '/errors/' + name + '.expected.json', JSON.stringify(actual, null, '  '));
-    }
-  });
+
+  // fs.readdirSync(__dirname + '/errors-src').forEach(function (name) {
+  //   if (!pugRe.test(name)) return;
+  //   name = name.replace(pugRe, '');
+  //   var filename = name + '.input.json';
+  //   var alreadyExists = false;
+  //   existingErrors = existingErrors.filter(function (existingName) {
+  //     if (existingName === filename) {
+  //       alreadyExists = true;
+  //       return false;
+  //     }
+  //     return true;
+  //   });
+  //   if (alreadyExists) {
+  //     var actualTokens = parse(lex(fs.readFileSync(__dirname + '/errors-src/' + name + '.pug', 'utf8')));
+  //     try {
+  //       var expectedTokens = JSON.parse(fs.readFileSync(__dirname + '/errors/' + filename, 'utf8'));
+  //       assert.deepEqual(actualTokens, expectedTokens);
+  //     } catch (ex) {
+  //       console.log('update: ' + filename);
+  //       fs.writeFileSync(__dirname + '/errors/' + filename, JSON.stringify(actualTokens, null, '  '));
+  //     }
+  //     var actual = getError(actualTokens, filename);
+  //     try {
+  //       var expected = JSON.parse(fs.readFileSync(__dirname + '/errors/' + name + '.expected.json', 'utf8'));
+  //       assert.deepEqual(actual, expected);
+  //     } catch (ex) {
+  //       console.log('update: ' + name + '.expected.json');
+  //       fs.writeFileSync(__dirname + '/errors/' + name + '.expected.json', JSON.stringify(actual, null, '  '));
+  //     }
+  //   } else {
+  //     console.log('create: ' + filename);
+  //     var ast = parse(lex(fs.readFileSync(__dirname + '/errors-src/' + name + '.pug', 'utf8')));
+  //     fs.writeFileSync(__dirname + '/errors/' + filename, JSON.stringify(ast, null, 2));
+  //     console.log('create: ' + name + '.expected.json');
+  //     var actual = getError(ast, filename);
+  //     fs.writeFileSync(__dirname + '/errors/' + name + '.expected.json', JSON.stringify(actual, null, '  '));
+  //   }
+  // });
+
   console.log('test cases updated');
 });
 
