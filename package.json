@@ -16,6 +16,7 @@
     "url"  : "https://github.com/pugjs/pug.git"
   },
   "scripts": {
+    "init"        : "lerna init",
     "clean"       : "lerna clean",
     "release"     : "lerna publish",
     "postinstall" : "lerna bootstrap",
