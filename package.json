@@ -2,32 +2,35 @@
   "name"            : "pug-monorepo",
   "version"         : "0.0.1",
   "private"         : true,
+  "dependencies"    : {
+    "lerna" : "2.0.0-beta.32"
+  },
   "devDependencies" : {
-    "coveralls": "^2.11.2",
-    "jest": "^18.1.0",
-    "lerna": "2.0.0-beta.32",
-    "prettier": "^1.3.1"
+    "coveralls" : "^2.11.2",
+    "jest"      : "^18.1.0",
+    "lerna"     : "2.0.0-beta.32",
+    "prettier"  : "^1.3.1"
   },
   "repository": {
-    "type": "git",
-    "url": "https://github.com/pugjs/pug.git"
+    "type" : "git",
+    "url"  : "https://github.com/pugjs/pug.git"
   },
   "scripts": {
-    "clean": "lerna clean",
-    "release": "lerna publish",
-    "postinstall": "lerna bootstrap",
-    "pretest": "lerna run pretest",
-    "test": "jest",
-    "coverage": "jest --coverage",
-    "coveralls": "npm run coverage && cat ./coverage/lcov.info | coveralls",
-    "watch": "jest --watch"
+    "clean"       : "lerna clean",
+    "release"     : "lerna publish",
+    "postinstall" : "lerna bootstrap",
+    "pretest"     : "lerna run pretest",
+    "test"        : "jest",
+    "coverage"    : "jest --coverage",
+    "coveralls"   : "npm run coverage && cat ./coverage/lcov.info | coveralls",
+    "watch"       : "jest --watch"
   },
   "jest": {
-    "testEnvironment": "node",
-    "snapshotSerializers": [
+    "testEnvironment"     : "node",
+    "snapshotSerializers" : [
       "./scripts/filename-serializer.js",
       "./scripts/prettier-javascript-serializer.js"
     ]
   },
-  "license": "MIT"
+  "license" : "MIT"
 }
