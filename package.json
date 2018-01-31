@@ -1,7 +1,8 @@
 {
-  "name": "pug-monorepo",
-  "private": true,
-  "devDependencies": {
+  "name"            : "pug-monorepo",
+  "version"         : "0.0.1",
+  "private"         : true,
+  "devDependencies" : {
     "coveralls": "^2.11.2",
     "jest": "^18.1.0",
     "lerna": "2.0.0-beta.32",
